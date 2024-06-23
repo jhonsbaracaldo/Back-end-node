@@ -23,6 +23,6 @@ app.use(session({
 
 
 // Iniciar el servidor
-app.listen(3000, () => {
-    console.log('SERVER RUNNING IN http://localhost:3000');
+app.listen(8080, () => {
+    console.log('SERVER RUNNING IN http://localhost:8080');
 });
