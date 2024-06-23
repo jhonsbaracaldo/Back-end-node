@@ -1,29 +1,28 @@
-//invocamos express
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
+import session from 'express-session';
+import { urlencoded, json } from 'express';  // Importar métodos específicos de express
+import client from './config/db.js';  // Asumiendo que db.js exporta un cliente de base de datos
+import bcryptjs from 'bcryptjs';
+
+
 const app = express();
 
+dotenv.config({ path: './env/.env' });
 
-//2.  que permite al servidor manejar correctamente los datos enviados en el cuerpo de las solicitudes HTTP
-app.use(express.urlencoded({extended:false}));
-app.use(express.json());
+// Configurar express para manejar datos enviados en las solicitudes HTTP
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
-//3. invocar dotenv
-const dotenv = require ('dotenv');
-dotenv.config({path:'./env/.env'});
-
-app.listen(3000, (req,res) => {
-    console.log('SERVER RUNNING IN http://localhost:3000');
-})
-
-const bcryptjs = require ('bcryptjs');
-//4 Variables de sesion
-const session = require ('express-session');
+// Configurar sesión
 app.use(session({
-    secret:'secret',
-    resave:true,
-    saveUninitialized:true
-}))
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 
 
-//3. Invocar el modulo de conexión a la BD
-const client = require ('./config/db');
+// Iniciar el servidor
+app.listen(3000, () => {
+    console.log('SERVER RUNNING IN http://localhost:3000');
+});
